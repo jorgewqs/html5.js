@@ -7,12 +7,12 @@
 
 ## `html5`
 * [`html5`](#html5)
-* [`html5.version`](#html5.version)
-* [`html5.createDocumentFragment`](#html5.createDocumentFragment)
-* [`html5.createElement`](#html5.createElement)
-* [`html5.install`](#html5.install)
-* [`html5.noConflict`](#html5.noConflict)
-* [`html5.uninstall`](#html5.uninstall)
+* [`html5.version`](#html5version)
+* [`html5.createDocumentFragment`](#html5createdocumentfragmentownerdocumentdocument)
+* [`html5.createElement`](#html5createelementownerdocumentdocument-nodename)
+* [`html5.install`](#html5installownerdocumentdocument-options)
+* [`html5.noConflict`](#html5noconflict)
+* [`html5.uninstall`](#html5uninstallownerdocumentdocument-options)
 
 <!-- /div -->
 
@@ -20,10 +20,10 @@
 <!-- div -->
 
 ## `html5.support`
-* [`html5.support`](#html5.support)
-* [`html5.support.html5Printing`](#html5.support.html5Printing)
-* [`html5.support.html5Styles`](#html5.support.html5Styles)
-* [`html5.support.unknownElements`](#html5.support.unknownElements)
+* [`html5.support`](#html5support)
+* [`html5.support.html5Printing`](#html5supporthtml5printing)
+* [`html5.support.html5Styles`](#html5supporthtml5styles)
+* [`html5.support.unknownElements`](#html5supportunknownelements)
 
 <!-- /div -->
 
@@ -40,27 +40,43 @@
 
 <!-- div -->
 
-### <a id="html5" href="https://github.com/bestiejs/html5.js/blob/master/html5.js#L747" title="View in source">`html5`</a>
+
+<!-- div -->
+
+### `html5`
+<a id="html5" href="#html5">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L747 "View in source") [&#x24C9;][1]
+
 *(Object)*: The `html5` object.
-[&#9650;][1]
+
+* * *
 
 <!-- /div -->
 
 
 <!-- div -->
 
-### <a id="html5.version" href="https://github.com/bestiejs/html5.js/blob/master/html5.js#L755" title="View in source">`html5.version`</a>
+
+<!-- div -->
+
+### `html5.version`
+<a id="html5version" href="#html5version">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L755 "View in source") [&#x24C9;][1]
+
 *(String)*: The semantic version number.
-[&#9650;][1]
+
+* * *
 
 <!-- /div -->
 
 
 <!-- div -->
 
-### <a id="html5.createDocumentFragment" href="https://github.com/bestiejs/html5.js/blob/master/html5.js#L589" title="View in source">`html5.createDocumentFragment([ownerDocument=document])`</a>
+
+<!-- div -->
+
+### `html5.createDocumentFragment([ownerDocument=document])`
+<a id="html5createdocumentfragmentownerdocumentdocument" href="#html5createdocumentfragmentownerdocumentdocument">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L589 "View in source") [&#x24C9;][1]
+
 Creates a shimmed document fragment.
-[&#9650;][1]
 
 #### Arguments
 1. `[ownerDocument=document]` *(Document)*: The context document.
@@ -77,14 +93,20 @@ html5.createDocumentFragment();
 parent.html5.createDocumentFragment(document);
 ~~~
 
+* * *
+
 <!-- /div -->
 
 
 <!-- div -->
 
-### <a id="html5.createElement" href="https://github.com/bestiejs/html5.js/blob/master/html5.js#L545" title="View in source">`html5.createElement([ownerDocument=document], nodeName)`</a>
+
+<!-- div -->
+
+### `html5.createElement([ownerDocument=document], nodeName)`
+<a id="html5createelementownerdocumentdocument-nodename" href="#html5createelementownerdocumentdocument-nodename">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L545 "View in source") [&#x24C9;][1]
+
 Creates a shimmed element of the given node name.
-[&#9650;][1]
 
 #### Arguments
 1. `[ownerDocument=document]` *(Document)*: The context document.
@@ -102,14 +124,20 @@ html5.createElement('div');
 parent.html5.createElement(document, 'div');
 ~~~
 
+* * *
+
 <!-- /div -->
 
 
 <!-- div -->
 
-### <a id="html5.install" href="https://github.com/bestiejs/html5.js/blob/master/html5.js#L648" title="View in source">`html5.install([ownerDocument=document, options={}])`</a>
+
+<!-- div -->
+
+### `html5.install([ownerDocument=document, options={}])`
+<a id="html5installownerdocumentdocument-options" href="#html5installownerdocumentdocument-options">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L648 "View in source") [&#x24C9;][1]
+
 Installs shims according to the specified options.
-[&#9650;][1]
 
 #### Arguments
 1. `[ownerDocument=document]` *(Document)*: The document.
@@ -164,26 +192,38 @@ html5.install({
 });
 ~~~
 
+* * *
+
 <!-- /div -->
 
 
 <!-- div -->
 
-### <a id="html5.noConflict" href="https://github.com/bestiejs/html5.js/blob/master/html5.js#L682" title="View in source">`html5.noConflict()`</a>
+
+<!-- div -->
+
+### `html5.noConflict()`
+<a id="html5noconflict" href="#html5noconflict">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L682 "View in source") [&#x24C9;][1]
+
 Restores a previously overwritten `html5` object.
-[&#9650;][1]
 
 #### Returns
 *(Object)*: The current `html5` object.
 
+* * *
+
 <!-- /div -->
 
 
 <!-- div -->
 
-### <a id="html5.uninstall" href="https://github.com/bestiejs/html5.js/blob/master/html5.js#L722" title="View in source">`html5.uninstall([ownerDocument=document, options={}])`</a>
+
+<!-- div -->
+
+### `html5.uninstall([ownerDocument=document, options={}])`
+<a id="html5uninstallownerdocumentdocument-options" href="#html5uninstallownerdocumentdocument-options">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L722 "View in source") [&#x24C9;][1]
+
 Uninstalls shims according to the specified options.
-[&#9650;][1]
 
 #### Arguments
 1. `[ownerDocument=document]` *(Document)*: The document.
@@ -221,6 +261,8 @@ parent.html5.uninstall(document, options);
 html5.uninstall('all');
 ~~~
 
+* * *
+
 <!-- /div -->
 
 
@@ -233,36 +275,60 @@ html5.uninstall('all');
 
 <!-- div -->
 
-### <a id="html5.support" href="https://github.com/bestiejs/html5.js/blob/master/html5.js#L50" title="View in source">`html5.support`</a>
+
+<!-- div -->
+
+### `html5.support`
+<a id="html5support" href="#html5support">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L50 "View in source") [&#x24C9;][1]
+
 *(Object)*: An object used to flag features.
-[&#9650;][1]
+
+* * *
 
 <!-- /div -->
 
 
 <!-- div -->
 
-### <a id="html5.support.html5Printing" href="https://github.com/bestiejs/html5.js/blob/master/html5.js#L110" title="View in source">`html5.support.html5Printing`</a>
+
+<!-- div -->
+
+### `html5.support.html5Printing`
+<a id="html5supporthtml5printing" href="#html5supporthtml5printing">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L110 "View in source") [&#x24C9;][1]
+
 *(Boolean)*: Detect whether the browser supports printing html5 elements.
-[&#9650;][1]
+
+* * *
 
 <!-- /div -->
 
 
 <!-- div -->
 
-### <a id="html5.support.html5Styles" href="https://github.com/bestiejs/html5.js/blob/master/html5.js#L81" title="View in source">`html5.support.html5Styles`</a>
+
+<!-- div -->
+
+### `html5.support.html5Styles`
+<a id="html5supporthtml5styles" href="#html5supporthtml5styles">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L81 "View in source") [&#x24C9;][1]
+
 *(Boolean)*: Detect whether the browser supports default html5 styles.
-[&#9650;][1]
+
+* * *
 
 <!-- /div -->
 
 
 <!-- div -->
 
-### <a id="html5.support.unknownElements" href="https://github.com/bestiejs/html5.js/blob/master/html5.js#L90" title="View in source">`html5.support.unknownElements`</a>
+
+<!-- div -->
+
+### `html5.support.unknownElements`
+<a id="html5supportunknownelements" href="#html5supportunknownelements">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L90 "View in source") [&#x24C9;][1]
+
 *(Boolean)*: Detect whether the browser supports unknown elements.
-[&#9650;][1]
+
+* * *
 
 <!-- /div -->
 
