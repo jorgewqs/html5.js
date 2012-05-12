@@ -3,6 +3,11 @@
   /** The `html5` object to test */
   var html5 = window.html5;
 
+  /** Used to detect if a method is native */
+  var reNative = RegExp('^' + (document.documentElement.appendChild + '')
+    .replace(/[.*+?^=!:${}()|[\]\/\\]/g, '\\$&')
+    .replace(/appendChild/g, '.+?') + '$')
+
   /** Used for iframe names */
   var uid = 0;
 
@@ -43,46 +48,6 @@
     callback(doc.result);
     body.removeChild(iframe);
   }
-
-  /**
-   * Uses implementation dependent `Function#toString` behavior in an attempt
-   * to detect native functions by comparing the `toString` signature of a native
-   * function against that of the given function. Note: This function is not
-   * foolproof and will return `false` in environments that return empty string
-   * values or unmatchable signatures.
-   * @private
-   * @param {Object} object The object that the function is accessible from.
-   * @param {String} method The property name of the function.
-   * @returns {Boolean} Returns true if the signatures match, else false.
-   * @see https://github.com/dperini/nwmatcher/blob/master/src/nwmatcher.js#L183-190
-   */
-  var isNative = (function() {
-    // resolve the native function `toString` signature from a builtin and a host object
-    // e.g. `function (){ [native code] }`, `[function]` or `[ecmascript code]`
-    var signatures = [{}.valueOf + '', document.appendChild + ''];
-
-    // remove identical or unresolvable signatures
-    signatures[0] ? (signatures[0] = signatures[0].replace(/valueOf/g, '')) : signatures.shift();
-    signatures[1] ? (signatures[1] = signatures[1].replace(/appendChild/g, '')) : signatures.pop();
-    signatures[1] == signatures[0] && signatures.pop();
-
-    return function(object, method) {
-      var signature,
-          index = -1,
-          length = signatures.length,
-          fn = object && object[method];
-
-      if (!!fn && typeof fn != 'string') {
-        signature = (fn + '').replace(RegExp(method, 'g'), '');
-        while (++index < length) {
-          if (signature == signatures[index]) {
-            return true;
-          }
-        }
-      }
-      return false;
-    }
-  }());
 
   /**
    * Skips a given number of tests with a passing result.
@@ -133,22 +98,22 @@
         skipTest(4);
       }
       else {
-        ok(!isNative(document, 'createElement') &&
-           !isNative(document, 'createDocumentFragment'), 'native methods overwritten with ' + optionType + ' options');
+        ok(!reNative.test(document.createElement) &&
+           !reNative.test(document.createDocumentFragment), 'native methods overwritten with ' + optionType + ' options');
 
         html5.uninstall(optionType == 'string' ? 'methods' : { 'methods': true });
 
-        ok(isNative(document, 'createElement') &&
-           isNative(document, 'createDocumentFragment'), 'native methods restored with ' + optionType + ' options');
+        ok(reNative.test(document.createElement) &&
+           reNative.test(document.createDocumentFragment), 'native methods restored with ' + optionType + ' options');
 
         executeInIframe('html5.install(doc,' + (optionType == 'string' ? '"methods")' : '{"methods":true})'), function(document) {
-          ok(!isNative(document, 'createElement') &&
-             !isNative(document, 'createDocumentFragment'), 'native methods overwritten in iframe with ' + optionType + ' options');
+          ok(!reNative.test(document.createElement) &&
+             !reNative.test(document.createDocumentFragment), 'native methods overwritten in iframe with ' + optionType + ' options');
         });
 
         executeInIframe('html5.uninstall(html5.install(doc,' + (optionType == 'string' ? '"methods"),"methods")' : '{"methods":true}),{"methods":true})'), function(document) {
-          ok(isNative(document, 'createElement') &&
-             isNative(document, 'createDocumentFragment'), 'native methods restored in iframe with ' + optionType + ' options');
+          ok(reNative.test(document.createElement) &&
+             reNative.test(document.createDocumentFragment), 'native methods restored in iframe with ' + optionType + ' options');
         });
       }
 

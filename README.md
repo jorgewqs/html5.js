@@ -45,8 +45,7 @@ html5.createDocumentFragment();
 // install support extensions with an options object
 html5.install({
 
-  // allow IE6 to use CSS expressions to support `[hidden]`
-  // and `audio[controls]` styles
+  // allow IE6 to use CSS expressions to support `[hidden]` styles
   'expressions': true,
 
   // overwrite the document's `createElement` and `createDocumentFragment`

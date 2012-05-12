@@ -14,10 +14,14 @@
   var html5Cache = {};
 
   /** Previous `html5` object */
-  var old = window['html5'];
+  var old = window.html5;
 
   /** List of HTML5 node names to install support for */
-  var nodeNames = 'abbr article aside audio bdi canvas data datalist details figcaption figure footer header hgroup mark meter nav output progress section summary time video'.split(' ');
+  var nodeNames = [
+    'abbr', 'article', 'aside', 'audio', 'bdi', 'canvas', 'data', 'datalist',
+    'details', 'figcaption', 'figure', 'footer', 'header', 'hgroup', 'mark',
+    'meter', 'nav', 'output', 'progress', 'section', 'summary', 'time', 'video'
+  ];
 
   /** Used to namespace printable elements and define `expando` */
   var namespace = 'html5js';
@@ -66,7 +70,7 @@
       parent.insertBefore(sandbox, parent.firstChild);
       sandbox = (sandbox = sandbox.contentWindow || sandbox.contentDocument || frames[expando]).document || sandbox;
     }
-    sandbox.write('<!doctype html><title></title><body><script>document.w=this<\/script>');
+    sandbox.write('<!doctype html><title></title><body><script>document.w = this<\/script>');
     sandbox.close();
 
     p = sandbox.body.appendChild(sandbox.createElement('p'));
@@ -237,8 +241,8 @@
    * @returns {Document|Fragment} The document.
    */
   function createElements(ownerDocument) {
-    var create = ownerDocument.createElement,
-        index = nodeNames.length;
+    var index = nodeNames.length,
+        create = ownerDocument.createElement;
 
     while (index--) {
       create(nodeNames[index]);
@@ -296,10 +300,10 @@
 
     return html5Cache[id] || (html5Cache[id] = {
       'frag': !skip && createElements(ownerDocument.createDocumentFragment()),
+      'nativeCreateElement': !skip && createElements(ownerDocument).createElement,
+      'nativeCreateFragment': !skip && ownerDocument.createDocumentFragment,
       'nodes': {},
-      'trash': ownerDocument.createElement('div'),
-      'createDocumentFragment': !skip && ownerDocument.createDocumentFragment,
-      'createElement': !skip && createElements(ownerDocument).createElement
+      'trash': ownerDocument.createElement('div')
     });
   }
 
@@ -350,7 +354,7 @@
    */
   function setMethods(ownerDocument) {
     var cache = getCache(ownerDocument),
-        create = cache.createElement,
+        create = cache.nativeCreateElement,
         frag = cache.frag,
         nodes = cache.nodes;
 
@@ -367,10 +371,12 @@
     };
 
     // compile unrolled `createElement` calls for better performance
-    ownerDocument.createDocumentFragment = Function('f',
-      'return function(){var n=f.cloneNode(),c=n.createElement;' +
-      ('' + nodeNames).replace(/\w+/g, 'c("$&")') +
-      ';return n}'
+    ownerDocument.createDocumentFragment = Function('frag',
+      'return function() {\n' +
+      '  var node = frag.cloneNode(), create = node.createElement;\n' +
+      (nodeNames + '').replace(/\w+/g, '  create("$&")') + ';\n' +
+      '  return node\n' +
+      '}'
     )(frag);
   }
 
@@ -438,7 +444,7 @@
    * @param {Object} options Options object.
    */
   function setStyles(ownerDocument, options) {
-    // much of the CSS is based on
+    // the following CSS is based on
     // https://github.com/necolas/normalize.css and
     // http://mathiasbynens.be/notes/safe-css-hacks#css-hacks
     var expressions = options.expressions;
@@ -481,12 +487,12 @@
    */
   function unsetMethods(ownerDocument) {
     var cache = getCache(ownerDocument),
-        fn = cache.createElement;
+        fn = cache.nativeCreateElement;
 
     if (ownerDocument.createElement != fn) {
       ownerDocument.createElement = fn;
     }
-    if (ownerDocument.createDocumentFragment != (fn = cache.createDocumentFragment)) {
+    if (ownerDocument.createDocumentFragment != (fn = cache.nativeCreateFragment)) {
       ownerDocument.createDocumentFragment = fn;
     }
   }
@@ -562,7 +568,7 @@
     var cache = getCache(ownerDocument),
         nodes = cache.nodes,
         cached = nodes[nodeName],
-        node = cached ? cached.cloneNode() : cache.createElement(nodeName);
+        node = cached ? cached.cloneNode() : cache.nativeCreateElement(nodeName);
 
     // IE < 9 doesn't clone unknown elements correctly
     if (!cached && !unclonables[nodeName] &&
@@ -679,7 +685,7 @@
    * @returns {Object} The current `html5` object.
    */
   function noConflict() {
-    window['html5'] = old;
+    window.html5 = old;
     return this;
   }
 
@@ -774,21 +780,18 @@
 
   /*--------------------------------------------------------------------------*/
 
-  // Expose `html5` to the global before exposing as a module so other AMD
-  // modules can use `html5.noConflict` to remove this version from the global.
-  // Use square bracket notation so Closure Compiler won't munge `html5`.
-  // http://code.google.com/closure/compiler/docs/api-tutorial3.html#export
-  window['html5'] = html5;
+  // Expose the `html5` object to the global object even when an AMD loader is
+  // present in case html5.js was injected by a third-party script and not
+  // intended to be loaded as a module. The global assignment can be reverted in
+  // the `html5` module via its `noConflict()` method.
+  window.html5 = html5;
 
-  // Expose `html5` as an AMD module, but only for AMD loaders that understand
-  // the issues with loading multiple versions of html5.js which might all
-  // call `define`. The loader will indicate it allows multiple html5.js
-  // versions by specifying `define.amd.html5 = true`.
-  if (typeof define == 'function' && typeof define.amd == 'object' &&
-      define.amd && define.amd.html5) {
-    // Register as a named module to avoid problems if html5.js is concatenated
-    // with other files that may use `define`, but not use a concatenation script
-    // that understands anonymous AMD modules.
-    define('html5', function() { return html5; });
+  // some AMD build optimizers, like r.js, check for specific condition patterns like the following:
+  if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) {
+    // define as an anonymous module so, through path mapping, it can be
+    // referenced by any module name
+    define(function() {
+      return html5;
+    });
   }
 }(this, document));
