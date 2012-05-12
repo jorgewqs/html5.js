@@ -470,7 +470,7 @@
       (window.XMLHttpRequest || !expressions ? '' :
         (typeof expressions == 'string'
           ? expressions
-          : 'a,abbr,acronym,address,applet,b,bdo,big,blockquote,body,br,button,' +
+          : 'a,abbr,acronym,address,applet,audio,b,bdo,big,blockquote,body,br,button,' +
             'caption,cite,code,col,colgroup,dd,del,dfn,div,dl,dt,em,fieldset,form,' +
             'h1,h2,h3,h4,h5,h6,hr,html,i,iframe,img,input,ins,kbd,label,legend,li,' +
             'object,ol,optgroup,option,p,pre,q,samp,select,small,span,strong,sub,' +
