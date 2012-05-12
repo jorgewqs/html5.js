@@ -44,7 +44,7 @@
 <!-- div -->
 
 ### `html5`
-<a id="html5" href="#html5">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L752 "View in source") [&#x24C9;][1]
+<a id="html5" href="#html5">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L753 "View in source") [&#x24C9;][1]
 
 *(Object)*: The `html5` object.
 
@@ -59,7 +59,7 @@
 <!-- div -->
 
 ### `html5.version`
-<a id="html5version" href="#html5version">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L760 "View in source") [&#x24C9;][1]
+<a id="html5version" href="#html5version">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L761 "View in source") [&#x24C9;][1]
 
 *(String)*: The semantic version number.
 
@@ -74,7 +74,7 @@
 <!-- div -->
 
 ### `html5.createDocumentFragment([ownerDocument=document])`
-<a id="html5createdocumentfragmentownerdocumentdocument" href="#html5createdocumentfragmentownerdocumentdocument">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L595 "View in source") [&#x24C9;][1]
+<a id="html5createdocumentfragmentownerdocumentdocument" href="#html5createdocumentfragmentownerdocumentdocument">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L596 "View in source") [&#x24C9;][1]
 
 Creates a shimmed document fragment.
 
@@ -104,7 +104,7 @@ parent.html5.createDocumentFragment(document);
 <!-- div -->
 
 ### `html5.createElement([ownerDocument=document], nodeName)`
-<a id="html5createelementownerdocumentdocument-nodename" href="#html5createelementownerdocumentdocument-nodename">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L551 "View in source") [&#x24C9;][1]
+<a id="html5createelementownerdocumentdocument-nodename" href="#html5createelementownerdocumentdocument-nodename">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L552 "View in source") [&#x24C9;][1]
 
 Creates a shimmed element of the given node name.
 
@@ -135,7 +135,7 @@ parent.html5.createElement(document, 'div');
 <!-- div -->
 
 ### `html5.install([ownerDocument=document, options={}])`
-<a id="html5installownerdocumentdocument-options" href="#html5installownerdocumentdocument-options">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L653 "View in source") [&#x24C9;][1]
+<a id="html5installownerdocumentdocument-options" href="#html5installownerdocumentdocument-options">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L654 "View in source") [&#x24C9;][1]
 
 Installs shims according to the specified options.
 
@@ -202,7 +202,7 @@ html5.install({
 <!-- div -->
 
 ### `html5.noConflict()`
-<a id="html5noconflict" href="#html5noconflict">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L687 "View in source") [&#x24C9;][1]
+<a id="html5noconflict" href="#html5noconflict">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L688 "View in source") [&#x24C9;][1]
 
 Restores a previously overwritten `html5` object.
 
@@ -220,7 +220,7 @@ Restores a previously overwritten `html5` object.
 <!-- div -->
 
 ### `html5.uninstall([ownerDocument=document, options={}])`
-<a id="html5uninstallownerdocumentdocument-options" href="#html5uninstallownerdocumentdocument-options">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L727 "View in source") [&#x24C9;][1]
+<a id="html5uninstallownerdocumentdocument-options" href="#html5uninstallownerdocumentdocument-options">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L728 "View in source") [&#x24C9;][1]
 
 Uninstalls shims according to the specified options.
 

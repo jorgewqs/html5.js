@@ -374,7 +374,7 @@
     ownerDocument.createDocumentFragment = Function('frag',
       'return function() {\n' +
       '  var node = frag.cloneNode(), create = node.createElement;\n' +
-      (nodeNames + '').replace(/\w+/g, '  create("$&")') + ';\n' +
+      (nodeNames + '').replace(/\w+/g, 'create("$&")\n') + ';\n' +
       '  return node\n' +
       '}'
     )(frag);
@@ -450,32 +450,33 @@
     var expressions = options.expressions;
     getCache(ownerDocument).sheet = addStyleSheet(ownerDocument,
       // corrects block display not defined in IE6/7/8/9
-      'article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary{display:block}' +
+      'article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary { display: block }\n' +
       // corrects inline-block display not defined in IE6/7/8/9 and Firefox 3
-      'audio,canvas,video{display:inline-block;*display:inline;*zoom:1}' +
+      'audio, canvas, video { display: inline-block; *display: inline; *zoom: 1 }\n' +
       // prevents modern browsers from displaying audio elements without controls
       // and removes excess height in iOS5 devices
-      'audio:not([controls]){display:none;height:0}' +
+      'audio:not([controls]) { display: none; height: 0 }\n' +
       // corrects figure margins in IE6/7/8/9, Opera 11, and Safari 5
-      'figure{margin:0}' +
+      'figure { margin: 0 }\n' +
       // corrects image list markers in IE7
-      'nav ul,nav ol{list-style:none;list-style-image:none}' +
+      'nav ul, nav ol { list-style: none; list-style-image: none }\n' +
       // adds styling not present in IE6/7/8/9
-      'mark{background:#ff0;color:#000}' +
+      'mark{ background: #ff0; color: #000 }\n' +
       // corrects 'hidden' attribute not present in IE7/8/9, Firefox 3, and Safari 4
-      '[hidden]{display:none}' +
-      // use CSS expressions to simulate attribute selectors in IE6
+      '[hidden] { display: none }\n' +
+      // use a CSS expression to simulate the `[hidden]` attribute selector in IE6
       // avoid CSS hacks like the underscore prefix because IE7 will still eval the expression
       (window.XMLHttpRequest || !expressions ? '' :
         (typeof expressions == 'string'
           ? expressions
-          : 'a,abbr,acronym,address,applet,b,bdo,big,blockquote,body,br,button,' +
-            'caption,cite,code,col,colgroup,dd,del,dfn,div,dl,dt,em,fieldset,form,' +
-            'h1,h2,h3,h4,h5,h6,hr,html,i,iframe,img,input,ins,kbd,label,legend,li,' +
-            'object,ol,optgroup,option,p,pre,q,samp,select,small,span,strong,sub,' +
-            'sup,table,tbody,td,textarea,tfoot,th,thead,tr,tt,ul,var,' + nodeNames
+          : 'a, abbr, acronym, address, applet, b, bdo, big, blockquote, body, ' +
+            'br, button, caption, cite, code, col, colgroup, dd, del, dfn, div, ' +
+            'dl, dt, em, fieldset, form, h1, h2, h3, h4, h5, h6, hr, html, i, iframe, ' +
+            'img, input, ins, kbd, label, legend, li , object, ol, optgroup, option, ' +
+            'p, pre, q, samp, select, small, span, strong, sub, sup, table, tbody, ' +
+            'td, textarea, tfoot, th, thead, tr, tt, ul, var, ' + nodeNames
         ) +
-        '{display:expression(this.' + expando + '||(' + computeExpression + ').call(this))}'
+        '{ display: expression(this.' + expando + ' || (' + computeExpression + ').call(this)) }'
     ));
   }
 
