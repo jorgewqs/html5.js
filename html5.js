@@ -133,13 +133,9 @@
       var node = event.srcElement,
           prop = event.propertyName;
 
-      if (prop == 'hidden' || prop == 'controls' && node.nodeName.toLowerCase() == 'audio') {
-        var specified = node[prop] === '' || node[prop],
-            style = node.style;
-
-        style.display = prop == 'hidden'
-          ? (specified ? 'none' : '')
-          : (specified ? (style.zoom = 1, 'inline') : (style.zoom = 'normal', ''));
+      if (prop == 'hidden') {
+        var specified = node[prop] === '' || node[prop];
+        node.style.display = specified ? 'none' : '';
       }
     }
     // overwrite the CSS expression and hookup event handlers
@@ -155,10 +151,8 @@
     // use a non-primitive value for the property to hide it from `outerHTML`
     this['expando'] = {};
 
-    // simulate `audio[controls]` and `[hidden]` support
-    return (this.controls === '' || this.controls) && this.nodeName.toLowerCase() == 'audio'
-      ? (this.style.zoom = 1, 'inline')
-      : (this.hidden === '' || this.hidden ? 'none' : '');
+    // simulate `[hidden]` support
+    return this.hidden === '' || this.hidden ? 'none' : '';
   })
   .replace(/expando/g, expando);
 
@@ -452,25 +446,25 @@
     getCache(ownerDocument).sheet = addStyleSheet(ownerDocument,
       // corrects block display not defined in IE6/7/8/9
       'article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary{display:block}' +
-      // corrects audio display not defined in IE6/7/8/9 and Firefox 3
+      // corrects inline-block display not defined in IE6/7/8/9 and Firefox 3
+      'audio,canvas,video{display:inline-block;*display:inline;*zoom:1}' +
+      // prevents modern browsers from displaying audio elements without controls
       // and removes excess height in iOS5 devices
-      'audio{display:none;height:0}' +
-      // corrects canvas and video display not defined in IE6/7/8/9 and Firefox 3
-      'canvas,video{display:inline-block;*display:inline;*zoom:1}' +
+      'audio:not([controls]){display:none;height:0}' +
       // corrects figure margins in IE6/7/8/9, Opera 11, and Safari 5
       'figure{margin:0}' +
       // corrects image list markers in IE7
       'nav ul,nav ol{list-style:none;list-style-image:none}' +
       // adds styling not present in IE6/7/8/9
       'mark{background:#ff0;color:#000}' +
-      // corrects 'hidden' attribute and audio[controls] display not present in IE7/8/9
-      '[hidden]{display:none}audio[controls]{display:inline-block;*display:inline;*zoom:1}' +
+      // corrects 'hidden' attribute not present in IE7/8/9, Firefox 3, and Safari 4
+      '[hidden]{display:none}' +
       // use CSS expressions to simulate attribute selectors in IE6
       // avoid CSS hacks like the underscore prefix because IE7 will still eval the expression
       (window.XMLHttpRequest || !expressions ? '' :
         (typeof expressions == 'string'
           ? expressions
-          : 'a,abbr,acronym,address,applet,audio,b,bdo,big,blockquote,body,br,button,' +
+          : 'a,abbr,acronym,address,applet,b,bdo,big,blockquote,body,br,button,' +
             'caption,cite,code,col,colgroup,dd,del,dfn,div,dl,dt,em,fieldset,form,' +
             'h1,h2,h3,h4,h5,h6,hr,html,i,iframe,img,input,ins,kbd,label,legend,li,' +
             'object,ol,optgroup,option,p,pre,q,samp,select,small,span,strong,sub,' +
@@ -620,8 +614,7 @@
    * // with an options object
    * html5.install({
    *
-   *   // allow IE6 to use CSS expressions to support `[hidden]`
-   *   // and `audio[controls]` styles
+   *   // allow IE6 to use CSS expressions to support `[hidden]` styles
    *   'expressions': true,
    *
    *   // overwrite the document's `createElement` and `createDocumentFragment`
