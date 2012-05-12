@@ -42,9 +42,11 @@
 				fragDiv.innerHTML = '<section>This DOM fragment sentence is in a green box <mark>with these words highlighted</mark>?</section>';
 				body.appendChild(fragDiv);
 
-				var fragDivClone = div.cloneNode(true);
-				fragDivClone.innerText = fragDivClone.innerText.replace('innerHTML' , 'cloned node');
-				body.appendChild(fragDivClone);
+				var divClone = div.cloneNode(true),
+				    textNode = divClone.firstChild.firstChild;
+
+				textNode.nodeValue = textNode.nodeValue.replace('innerHTML' , 'cloned node');
+				body.appendChild(divClone);
 
 				// test HTML5.js API
 				var apiDiv = html5.createElement('div');
