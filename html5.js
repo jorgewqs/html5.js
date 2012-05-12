@@ -128,14 +128,12 @@
    * @type String
    */
   var computeExpression = String(function() {
-    // to avoid circular memory leaks the `this` binding is set to the matched element
     function onPropertyChange(event) {
       var node = event.srcElement,
           prop = event.propertyName;
 
       if (prop == 'hidden') {
-        var specified = node[prop] === '' || node[prop];
-        node.style.display = specified ? 'none' : '';
+        node.style.display = node[prop] === '' || node[prop] ? 'none' : '';
       }
     }
     // overwrite the CSS expression and hookup event handlers
@@ -147,8 +145,9 @@
       };
     }(this), 0);
 
-    // set a flag to avoid processing the element again
-    // use a non-primitive value for the property to hide it from `outerHTML`
+    // To avoid circular memory leaks the `this` binding is set to the matched
+    // element. Set a flag to avoid processing the element again and use a
+    // non-primitive property value to hide it from `outerHTML`.
     this['expando'] = {};
 
     // simulate `[hidden]` support
