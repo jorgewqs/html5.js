@@ -42,7 +42,7 @@
 
   /**
    * An object used to flag features.
-   * 
+   *
    * @static
    * @memberOf html5
    * @type Object
@@ -445,15 +445,22 @@
    * @param {Object} options Options object.
    */
   function setStyles(ownerDocument, options) {
+    // much of the CSS is based on
+    // https://github.com/necolas/normalize.css and
     // http://mathiasbynens.be/notes/safe-css-hacks#css-hacks
     var expressions = options.expressions;
     getCache(ownerDocument).sheet = addStyleSheet(ownerDocument,
       // corrects block display not defined in IE6/7/8/9
-      'article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}' +
-      // corrects audio display not defined in IE6/7/8/9
-      'audio{display:none}' +
-      // corrects canvas and video display not defined in IE6/7/8/9
+      'article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary{display:block}' +
+      // corrects audio display not defined in IE6/7/8/9 and Firefox 3
+      // and removes excess height in iOS5 devices
+      'audio{display:none;height:0}' +
+      // corrects canvas and video display not defined in IE6/7/8/9 and Firefox 3
       'canvas,video{display:inline-block;*display:inline;*zoom:1}' +
+      // corrects figure margins in IE6/7/8/9, Opera 11, and Safari 5
+      'figure{margin:0}' +
+      // corrects image list markers in IE7
+      'nav ul,nav ol{list-style:none;list-style-image:none}' +
       // adds styling not present in IE6/7/8/9
       'mark{background:#ff0;color:#000}' +
       // corrects 'hidden' attribute and audio[controls] display not present in IE7/8/9
