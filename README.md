@@ -45,9 +45,6 @@ html5.createDocumentFragment();
 // install support extensions with an options object
 html5.install({
 
-  // allow IE6 to use CSS expressions to support `[hidden]` styles
-  'expressions': true,
-
   // overwrite the document's `createElement` and `createDocumentFragment`
   // methods with `html5.createElement` and `html5.createDocumentFragment` equivalents.
   'methods': true,
@@ -55,8 +52,7 @@ html5.install({
   // add support for printing HTML5 elements
   'print': true,
 
-  // add default HTML5 element styles
-  // (optional if `expressions` option is truthy)
+  // add minimal default HTML5 element styles
   'styles': true
 });
 

@@ -8,7 +8,7 @@
   'use strict';
 
   /** Preset for the install/uninstall methods */
-  var allOptions = { 'expressions': true, 'methods': true, 'print': true, 'styles': true };
+  var allOptions = { 'methods': true, 'print': true, 'styles': true };
 
   /** Cache of created elements, document methods, and install state */
   var html5Cache = {};
@@ -126,42 +126,6 @@
   /*--------------------------------------------------------------------------*/
 
   /**
-   * Compiled into a style sheet to compute the result of an IE6 CSS expression.
-   *
-   * @private
-   * @type String
-   */
-  var computeExpression = String(function() {
-    function onPropertyChange(event) {
-      var node = event.srcElement,
-          prop = event.propertyName;
-
-      if (prop == 'hidden') {
-        node.style.display = node[prop] === '' || node[prop] ? 'none' : '';
-      }
-    }
-    // overwrite the CSS expression and hookup event handlers
-    setTimeout(function(node) {
-      return function() {
-        node.style.setExpression('display', 0);
-        node.removeAttribute('expando');
-        node.attachEvent('onpropertychange', onPropertyChange);
-      };
-    }(this), 0);
-
-    // To avoid circular memory leaks the `this` binding is set to the matched
-    // element. Set a flag to avoid processing the element again and use a
-    // non-primitive property value to hide it from `outerHTML`.
-    this['expando'] = {};
-
-    // simulate `[hidden]` support
-    return this.hidden === '' || this.hidden ? 'none' : '';
-  })
-  .replace(/expando/g, expando);
-
-  /*--------------------------------------------------------------------------*/
-
-  /**
    * Creates a style sheet of modified CSS rules to style the print wrappers.
    * (e.g. the CSS rule "header{}" becomes "html5js\:header{}")
    *
@@ -218,12 +182,6 @@
    * @returns {StyleSheet} The style sheet.
    */
   function addStyleSheet(ownerDocument, cssText) {
-    // IE7 only respects `[hidden]` rules when created with `document.createStyleSheet`
-    if (document.createStyleSheet && !/\\:/.test(cssText)) {
-      var sheet = ownerDocument.createStyleSheet();
-      sheet.cssText = cssText;
-      return sheet.owningElement;
-    }
     // IE8 only respects namespace prefixs when created with `innerHTML`
     var p = ownerDocument.createElement('p'),
         parent = ownerDocument.getElementsByTagName('head')[0] || ownerDocument.documentElement;
@@ -437,47 +395,26 @@
   }
 
   /**
-   * Adds default HTML5 element styles to the given document.
+   * Adds minimal default HTML5 element styles to the given document.
    *
    * @private
    * @param {Document} ownerDocument The document.
    * @param {Object} options Options object.
    */
   function setStyles(ownerDocument, options) {
-    // the following CSS is based on
-    // https://github.com/necolas/normalize.css and
-    // http://mathiasbynens.be/notes/safe-css-hacks#css-hacks
-    var expressions = options.expressions;
+    // for additional default and normalized HTML5 styles checkout
+    // https://github.com/necolas/normalize.css
     getCache(ownerDocument).sheet = addStyleSheet(ownerDocument,
-      // corrects block display not defined in IE6/7/8/9
-      'article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary { display: block }\n' +
-      // corrects inline-block display not defined in IE6/7/8/9 and Firefox 3
-      'audio, canvas, video { display: inline-block; *display: inline; *zoom: 1 }\n' +
-      // prevents modern browsers from displaying audio elements without controls
-      // and removes excess height in iOS5 devices
-      'audio:not([controls]) { display: none; height: 0 }\n' +
-      // corrects figure margins in IE6/7/8/9, Opera 11, and Safari 5
-      'figure { margin: 0 }\n' +
-      // corrects image list markers in IE7
-      'nav ul, nav ol { list-style: none; list-style-image: none }\n' +
+      // corrects block display not defined in IE6/7/8/9 and Firefox 3
+      'article, aside, figcaption, figure, footer, header, hgroup, nav, section, summary {' +
+      '  display: block' +
+      '}' +
       // adds styling not present in IE6/7/8/9
-      'mark{ background: #ff0; color: #000 }\n' +
-      // corrects 'hidden' attribute not present in IE7/8/9, Firefox 3, and Safari 4
-      '[hidden] { display: none }\n' +
-      // use a CSS expression to simulate the `[hidden]` attribute selector in IE6
-      // avoid CSS hacks like the underscore prefix because IE7 will still eval the expression
-      (window.XMLHttpRequest || !expressions ? '' :
-        (typeof expressions == 'string'
-          ? expressions
-          : 'a, abbr, acronym, address, applet, b, bdo, big, blockquote, body, ' +
-            'br, button, caption, cite, code, col, colgroup, dd, del, dfn, div, ' +
-            'dl, dt, em, fieldset, form, h1, h2, h3, h4, h5, h6, hr, html, i, iframe, ' +
-            'img, input, ins, kbd, label, legend, li , object, ol, optgroup, option, ' +
-            'p, pre, q, samp, select, small, span, strong, sub, sup, table, tbody, ' +
-            'td, textarea, tfoot, th, thead, tr, tt, ul, var, ' + nodeNames
-        ) +
-        '{ display: expression(this.' + expando + ' || (' + computeExpression + ').call(this)) }'
-    ));
+      'mark {' +
+      '  background: #ff0;' +
+      '  color: #000' +
+      '}'
+    );
   }
 
   /**
@@ -524,11 +461,8 @@
         sheet = cache.sheet;
 
     if (sheet) {
-      cache.sheet = destroyElement(sheet, cache);
-      if (options.expressions && !options.styles) {
-        // add styles minus CSS expressions
-        setStyles(ownerDocument, {});
-      }
+      cache.sheet = null;
+      destroyElement(sheet, cache);
     }
   }
 
@@ -620,9 +554,6 @@
    * // with an options object
    * html5.install({
    *
-   *   // allow IE6 to use CSS expressions to support `[hidden]` styles
-   *   'expressions': true,
-   *
    *   // overwrite the document's `createElement` and `createDocumentFragment`
    *   // methods with `html5.createElement` and `html5.createDocumentFragment` equivalents.
    *   'methods': true,
@@ -630,8 +561,7 @@
    *   // add support for printing HTML5 elements
    *   'print': true,
    *
-   *   // add default HTML5 element styles
-   *   // (optional if `expressions` option is truthy)
+   *   // add minimal default HTML5 element styles
    *   'styles': true
    * });
    *
@@ -643,13 +573,6 @@
    *
    * // using a shortcut to install all support extensions
    * html5.install('all');
-   *
-   * // special note:
-   * // the `expressions` options may also be a selector to limit the number of
-   * // elements the CSS expression applies to
-   * html5.install({
-   *   'expressions': 'article, section'
-   * });
    */
   function install(ownerDocument, options) {
     ownerDocument || (ownerDocument = document);
@@ -657,13 +580,12 @@
       options = ownerDocument;
       ownerDocument = document;
     }
-    // uninstall all `styles` when installing `expressions` to avoid
-    // extra work by `unsetStyles()`
+
     options = resolveOptions(options);
     uninstall(ownerDocument, {
       'methods': options.methods,
       'print': options.print,
-      'styles': options.styles || options.expressions
+      'styles': options.styles
     });
 
     if (!support.html5Styles && options.styles) {
@@ -702,9 +624,6 @@
    * // basic usage with an options object
    * html5.uninstall({
    *
-   *   // remove CSS expression use
-   *   'expressions': true,
-   *
    *   // restore the document's original `createElement`
    *   // and `createDocumentFragment` methods.
    *   'methods': true,
@@ -712,7 +631,7 @@
    *   // remove support for printing HTML5 elements
    *   'print': true,
    *
-   *   // remove default HTML5 element styles
+   *   // remove minimal default HTML5 element styles
    *   'styles': true
    * });
    *
@@ -738,7 +657,7 @@
     if (!support.html5Printing && options.print) {
       unsetPrintSupport(ownerDocument);
     }
-    if (!support.html5Styles && (options.expressions || options.styles)) {
+    if (!support.html5Styles && options.styles) {
       unsetStyles(ownerDocument, options);
     }
     return ownerDocument;
