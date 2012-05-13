@@ -6,11 +6,8 @@
   var fs = require('fs'),
       path = require('path');
 
-  /** The build directory containing the build scripts */
-  var buildPath = path.join(__dirname, 'build');
-
   /** The minify module */
-  var Minify = require(path.join(buildPath, 'minify'));
+  var Minify = require(path.join(__dirname, 'build', 'minify'));
 
   /** The html5.js source */
   var source = fs.readFileSync(path.join(__dirname, 'html5.js'), 'utf8');
@@ -39,10 +36,9 @@
     noprint = noprint.replace(/\n +if *\(!support\.html5Printing[^}]+}/, '');
 
     // write files
-    fs.writeFileSync(path.join(__dirname, 'html5.noprint.js'), noprint);
-
     new Minify(noprint, 'html5.noprint.min', function(noprintResult) {
       fs.writeFileSync(path.join(__dirname, 'html5.min.js'), result);
+      fs.writeFileSync(path.join(__dirname, 'html5.noprint.js'), noprint);
       fs.writeFileSync(path.join(__dirname, 'html5.noprint.min.js'), noprintResult);
     });
   });
