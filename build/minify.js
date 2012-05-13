@@ -221,7 +221,7 @@
     if (exception) {
       throw exception;
     }
-    var message = 'Compressing  ' + this.workingName + ' using hybrid compression...';
+    var message = 'Compressing  ' + this.workingName + ' using hybrid minification...';
 
     // store the gzipped result and report the size
     this.uglified.gzip = result;
@@ -315,10 +315,9 @@
     // the same file
     (function() {
       var filePath = process.argv[2],
-          parts = filePath.split(/[\/\\]/),
-          dirPath = path.join.apply(path, parts.slice(0, -1)),
+          dirPath = path.dirname(filePath),
           source = fs.readFileSync(filePath, 'utf8'),
-          workingName = parts.slice(-1)[0].replace(reExtension, '.min');
+          workingName = path.basename(filePath, '.js') + '.min';
 
       new Minify(source, workingName, function(result) {
         fs.writeFileSync(path.join(dirPath, workingName + '.js'));

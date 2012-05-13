@@ -2,16 +2,14 @@
 ;(function() {
   'use strict';
 
-  /** The Node filesystem, path, `zlib`, and child process modules */
+  /** The Node filesystem and path modules */
   var fs = require('fs'),
-      gzip = require('zlib').gzip,
-      path = require('path'),
-      spawn = require('child_process').spawn;
+      path = require('path');
 
   /** The build directory containing the build scripts */
   var buildPath = path.join(__dirname, 'build');
 
-  /** Load minify module */
+  /** The minify module */
   var Minify = require(path.join(buildPath, 'minify'));
 
   /** The html5.js source */
