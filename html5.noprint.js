@@ -78,16 +78,15 @@
     sandbox.close();
 
     p = sandbox.body.appendChild(sandbox.createElement('p'));
-    p.innerHTML = '<xyz></xyz>';
-    p.hidden = true;
+    p.innerHTML = '<nav/>';
 
     /**
      * Detect whether the browser supports default html5 styles.
      * @memberOf html5.support
      * @type Boolean
      */
-    support.html5Styles = (p.currentStyle ||
-      sandbox.w.getComputedStyle(p, null)).display == 'none';
+    support.html5Styles = !!p.firstChild &&
+      (p.firstChild.currentStyle || sandbox.w.getComputedStyle(p.firstChild, null)).display == 'block';
 
     /**
      * Detect whether the browser supports unknown elements.
@@ -252,7 +251,7 @@
     // https://github.com/necolas/normalize.css
     getCache(ownerDocument).sheet = addStyleSheet(ownerDocument,
       // corrects block display not defined in IE6/7/8/9 and Firefox 3
-      'article, aside, figcaption, figure, footer, header, hgroup, nav, section, summary {' +
+      'article, aside, figcaption, figure, footer, header, hgroup, nav, section {' +
       '  display: block' +
       '}' +
       // adds styling not present in IE6/7/8/9
