@@ -78,16 +78,15 @@
     sandbox.close();
 
     p = sandbox.body.appendChild(sandbox.createElement('p'));
-    p.innerHTML = '<xyz></xyz>';
-    p.hidden = true;
+    p.innerHTML = '<nav/>';
 
     /**
      * Detect whether the browser supports default html5 styles.
      * @memberOf html5.support
      * @type Boolean
      */
-    support.html5Styles = (p.currentStyle ||
-      sandbox.w.getComputedStyle(p, null)).display == 'none';
+    support.html5Styles = !!p.firstChild &&
+      (p.firstChild.currentStyle || sandbox.w.getComputedStyle(p.firstChild, null)).display == 'block';
 
     /**
      * Detect whether the browser supports unknown elements.
