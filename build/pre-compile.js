@@ -92,7 +92,6 @@
   /**
    * Pre-process a given JavaScript `source`, preparing it for minification.
    *
-   * @private
    * @param {String} source The source to process.
    * @returns {String} Returns the processed source.
    */
