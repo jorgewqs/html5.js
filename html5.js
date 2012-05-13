@@ -410,7 +410,7 @@
     // https://github.com/necolas/normalize.css
     getCache(ownerDocument).sheet = addStyleSheet(ownerDocument,
       // corrects block display not defined in IE6/7/8/9 and Firefox 3
-      'article, aside, figcaption, figure, footer, header, hgroup, nav, section, summary {' +
+      'article, aside, figcaption, figure, footer, header, hgroup, nav, section {' +
       '  display: block' +
       '}' +
       // adds styling not present in IE6/7/8/9
