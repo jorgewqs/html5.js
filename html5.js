@@ -32,8 +32,12 @@
   /** Used to filter media types */
   var reMedia = /^$|\b(?:all|print)\b/;
 
-  /** Used to skip problem elements */
-  var reSkip = /^<|^(?:button|form|map|select|textarea)$/i;
+  /**
+   * Used to skip elements with type attributes because in IE they cannot be
+   * set/changed once an element is inserted into a document/fragment.
+   * http://msdn.microsoft.com/en-us/library/ie/ms534700(v=vs.85).aspx
+   */
+  var reSkip = /^(?:button|select)$/i;
 
   /** Used to detect elements that cannot be cloned correctly */
   var reUnclonable = /^<\?/;
@@ -368,8 +372,8 @@
       while ((sheet = sheets.pop())) {
         // IE does not enforce a same origin policy for external style sheets...
         if (!sheet.disabled && reMedia.test(sheet.media)) {
-          // but will throw an "access denied" error when attempting to read the
-          // CSS text of a style sheet added by a script from a different origin
+          // ...but will throw an "access denied" error when attempting to read
+          // the CSS text of a style sheet added by a script from a different origin.
           try {
             cssText.push(sheet.cssText);
             for (imports = sheet.imports, index = 0, length = imports.length; index < length; index++) {
@@ -402,7 +406,7 @@
    * @param {Object} options Options object.
    */
   function setStyles(ownerDocument, options) {
-    // for additional default and normalized HTML5 styles checkout
+    // for additional default and normalized HTML5 element styles checkout
     // https://github.com/necolas/normalize.css
     getCache(ownerDocument).sheet = addStyleSheet(ownerDocument,
       // corrects block display not defined in IE6/7/8/9 and Firefox 3
@@ -493,9 +497,9 @@
     if (support.unknownElements) {
       return ownerDocument.createElement(nodeName);
     }
-    // Avoid adding some elements to fragments in IE < 9 because
-    // * attributes like `name` or `type` cannot be set/changed once an element
-    //   is inserted into a document/fragment
+    // Avoid adding some elements to fragments in IE because
+    // * attributes like `type` cannot be set/changed once an element is inserted
+    //   into a document/fragment
     // * link elements with `src` attributes that are inaccessible, as with
     //   a 403 response, will cause the tab/window to crash
     // * script elements appended to fragments will execute when their `src`
