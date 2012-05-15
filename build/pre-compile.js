@@ -108,12 +108,12 @@
       return token;
     });
 
-    // minify snippet variables / arguments
+    // minify compiled snippet variables / arguments
     compiledVars.forEach(function(variable, index) {
       tokenized = tokenized.replace(RegExp('\\b' + variable + '\\b', 'g'), minNames[index]);
     });
 
-    // add brackets to whitelisted properties so Closure Compiler won't mung them.
+    // add brackets to whitelisted properties so Closure Compiler won't mung them
     // http://code.google.com/closure/compiler/docs/api-tutorial3.html#export
     source = source.replace(RegExp('\\.(' + propWhitelist.concat(cacheProps).join('|') + ')\\b', 'g'), "['$1']");
 
