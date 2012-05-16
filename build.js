@@ -31,7 +31,7 @@
   function removeFunction(source, funcName) {
     return source.replace(RegExp(
       // match multi-line comment block (could be on a single line)
-      '\\n +/\\*[^*]*\\*+(?:[^/][^*]*\\*+)*/\\n' +
+      '(?:\\n +/\\*[^*]*\\*+(?:[^/][^*]*\\*+)*/)?\\n' +
       // match a function declaration
       '( +)function ' + funcName + '\\b[\\s\\S]+?\\n\\1}\\n'
     ), '');
@@ -53,7 +53,7 @@
     noprint = noprint.replace(/ *'print':[^,]+,/, '');
 
     // remove `html5Printing` support test
-    noprint = noprint.replace(/\n +\/\*[^*]*\*+(?:[^\/][^*]*\*+)*\/\n( +)support.html5Printing *=[\s\S]+?\n\1\);?\n/, '');
+    noprint = noprint.replace(/(?:\n +\/\*[^*]*\*+(?:[^\/][^*]*\*+)*\/)?\n( +)support.html5Printing *=[\s\S]+?\n\1\);?\n/, '');
 
     // remove `html5Printing` related if-statements
     noprint = noprint.replace(/\n +if *\(!support\.html5Printing[^}]+}/, '');
