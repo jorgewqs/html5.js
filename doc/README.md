@@ -40,9 +40,6 @@
 
 <!-- div -->
 
-
-<!-- div -->
-
 ### <a id="html5"></a>`html5`
 <a href="#html5">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L675 "View in source") [&#x24C9;][1]
 
@@ -55,9 +52,6 @@
 
 <!-- div -->
 
-
-<!-- div -->
-
 ### <a id="html5version"></a>`html5.version`
 <a href="#html5version">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L683 "View in source") [&#x24C9;][1]
 
@@ -66,9 +60,6 @@
 * * *
 
 <!-- /div -->
-
-
-<!-- div -->
 
 
 <!-- div -->
@@ -100,9 +91,6 @@ parent.html5.createDocumentFragment(document);
 
 <!-- div -->
 
-
-<!-- div -->
-
 ### <a id="html5createelementownerdocumentdocument-nodename"></a>`html5.createElement([ownerDocument=document], nodeName)`
 <a href="#html5createelementownerdocumentdocument-nodename">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L489 "View in source") [&#x24C9;][1]
 
@@ -127,9 +115,6 @@ parent.html5.createElement(document, 'div');
 * * *
 
 <!-- /div -->
-
-
-<!-- div -->
 
 
 <!-- div -->
@@ -187,9 +172,6 @@ html5.install('all');
 
 <!-- div -->
 
-
-<!-- div -->
-
 ### <a id="html5noconflict"></a>`html5.noConflict()`
 <a href="#html5noconflict">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L613 "View in source") [&#x24C9;][1]
 
@@ -201,9 +183,6 @@ Restores a previously overwritten `html5` object.
 * * *
 
 <!-- /div -->
-
-
-<!-- div -->
 
 
 <!-- div -->
@@ -260,9 +239,6 @@ html5.uninstall('all');
 
 <!-- div -->
 
-
-<!-- div -->
-
 ### <a id="html5support"></a>`html5.support`
 <a href="#html5support">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L58 "View in source") [&#x24C9;][1]
 
@@ -271,9 +247,6 @@ html5.uninstall('all');
 * * *
 
 <!-- /div -->
-
-
-<!-- div -->
 
 
 <!-- div -->
@@ -290,9 +263,6 @@ html5.uninstall('all');
 
 <!-- div -->
 
-
-<!-- div -->
-
 ### <a id="html5supporthtml5styles"></a>`html5.support.html5Styles`
 <a href="#html5supporthtml5styles">#</a> [&#x24C8;](https://github.com/bestiejs/html5.js/blob/master/html5.js#L88 "View in source") [&#x24C9;][1]
 
@@ -301,9 +271,6 @@ html5.uninstall('all');
 * * *
 
 <!-- /div -->
-
-
-<!-- div -->
 
 
 <!-- div -->
