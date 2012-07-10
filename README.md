@@ -63,23 +63,6 @@ html5.install('print styles');
 html5.install('all');
 ~~~
 
-## Cloning this repo
-
-To clone this repository including all submodules, using Git 1.6.5 or later:
-
-~~~ bash
-git clone --recursive https://github.com/bestiejs/html5.js.git
-cd html5.js
-~~~
-
-For older Git versions, just use:
-
-~~~ bash
-git clone https://github.com/bestiejs/html5.js.git
-cd html5.js
-git submodule update --init
-~~~
-
 ## Author
 
 * [John-David Dalton](http://allyoucanleet.com/)
