@@ -1,4 +1,5 @@
-(function(window) {
+;(function(window) {
+  'use strict';
 
   /** The `html5` object to test */
   var html5 = window.html5;
@@ -51,10 +52,12 @@
 
   /**
    * Skips a given number of tests with a passing result.
+   *
    * @private
-   * @param {Number} count The number of tests to skip.
+   * @param {Number} [count=1] The number of tests to skip.
    */
   function skipTest(count) {
+    count || (count = 1);
     while (count--) {
       ok(true, 'test skipped');
     }
@@ -62,18 +65,22 @@
 
   /*--------------------------------------------------------------------------*/
 
-  QUnit.module('html5');
+  QUnit.module('html5.createElement');
 
-  test('html5.createElement', function() {
-    var nav = html5.createElement('nav'),
-        reUnclonable = /^<:/;
+  (function() {
+    test('html5.createElement', function() {
+      var nav = html5.createElement('nav'),
+          reUnclonable = /^<:/;
 
-    equal(nav.nodeName.toLowerCase(), 'nav', 'element created');
-    ok(!reUnclonable.test(nav.outerHTML), 'element created without IE < 9 cloneNode bug');
-    executeInIframe('html5.createElement(doc,"nav")', function(nav) {
-      ok(nav.nodeName.toLowerCase() == 'nav' && !reUnclonable.test(nav.outerHTML) && nav.ownerDocument != document, 'element created in iframe');
+      equal(nav.nodeName.toLowerCase(), 'nav', 'element created');
+      ok(!reUnclonable.test(nav.outerHTML), 'element created without IE < 9 cloneNode bug');
+      executeInIframe('html5.createElement(doc,"nav")', function(nav) {
+        ok(nav.nodeName.toLowerCase() == 'nav' && !reUnclonable.test(nav.outerHTML) && nav.ownerDocument != document, 'element created in iframe');
+      });
     });
-  });
+  }());
+
+  /*--------------------------------------------------------------------------*/
 
   test('html5.createDocumentFragment', function() {
     equal(html5.createDocumentFragment().nodeType, 11, 'fragment created');
@@ -147,7 +154,7 @@
     if (window.require) {
       strictEqual(((html5_2 || 0).support || 0).unknownElements, html5.support.unknownElements, 'require("html5")');
     } else {
-      skipTest(1);
+      skipTest();
     }
   });
 
