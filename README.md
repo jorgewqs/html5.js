@@ -16,13 +16,13 @@ For a list of upcoming features, check out our [roadmap](https://github.com/best
 
 In a browser:
 
-~~~ html
+```html
 <script src="html5.js"></script>
-~~~
+```
 
 In an AMD loader like [RequireJS](http://requirejs.org/):
 
-~~~ js
+```js
 require({
   'paths': {
     'html5': 'path/to/html5'
@@ -31,11 +31,11 @@ require({
 ['html5'], function(html5) {
   console.log(html5.support);
 });
-~~~
+```
 
 Usage example:
 
-~~~ js
+```js
 // create an element
 html5.createElement('div');
 
@@ -61,7 +61,7 @@ html5.install('print styles');
 
 // or using a shortcut to install all support extensions
 html5.install('all');
-~~~
+```
 
 ## Author
 

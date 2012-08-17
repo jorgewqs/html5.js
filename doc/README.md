@@ -5,7 +5,7 @@
 
 <!-- div -->
 
-## <a id="toc"></a>`html5`
+## <a id="html5"></a>`html5`
 * [`html5`](#html5)
 * [`html5.version`](#html5version)
 * [`html5.createDocumentFragment`](#html5createdocumentfragmentownerdocumentdocument)
@@ -76,13 +76,13 @@ Creates a shimmed document fragment.
 *(Fragment)*: The created document fragment.
 
 #### Example
-~~~ js
+```js
 // basic usage
 html5.createDocumentFragment();
 
 // from a child iframe
 parent.html5.createDocumentFragment(document);
-~~~
+```
 
 * * *
 
@@ -104,13 +104,13 @@ Creates a shimmed element of the given node name.
 *(Element)*: The created element.
 
 #### Example
-~~~ js
+```js
 // basic usage
 html5.createElement('div');
 
 // from a child iframe
 parent.html5.createElement(document, 'div');
-~~~
+```
 
 * * *
 
@@ -132,7 +132,7 @@ Installs shims according to the specified options.
 *(Document)*: The document.
 
 #### Example
-~~~ js
+```js
 // basic usage
 // autmatically called on the primary document to allow IE < 9 to
 // parse HTML5 elements correctly
@@ -163,7 +163,7 @@ parent.html5.install(document, options);
 
 // using a shortcut to install all support extensions
 html5.install('all');
-~~~
+```
 
 * * *
 
@@ -200,7 +200,7 @@ Uninstalls shims according to the specified options.
 *(Document)*: The document.
 
 #### Example
-~~~ js
+```js
 // basic usage with an options object
 html5.uninstall({
 
@@ -223,7 +223,7 @@ parent.html5.uninstall(document, options);
 
 // using a shortcut to uninstall all support extensions
 html5.uninstall('all');
-~~~
+```
 
 * * *
 
@@ -291,4 +291,4 @@ html5.uninstall('all');
 <!-- /div -->
 
 
-  [1]: #toc "Jump back to the TOC."
+  [1]: #html5 "Jump back to the TOC."
