@@ -23,15 +23,6 @@
    * @returns {String} Returns the processed source.
    */
   function postprocess(source) {
-    // exit early if snippet isn't found
-    var snippet = /version\s*:\s*([\'"])(.*?)\1/.exec(source);
-    if (!snippet) {
-      return source;
-    }
-
-    // set the version
-    var license = licenseTemplate.replace('@VERSION', snippet[2]);
-
     // move vars exposed by Closure Compiler into the IIFE
     source = source.replace(/^([^(\n]+)\s*(\(function[^)]+\){)/, '$2$1');
 
@@ -39,16 +30,24 @@
     source = source.replace(/'use strict'/, '"use strict"');
 
     // unescape properties (i.e. foo["bar"] => foo.bar)
-    source = source.replace(/(\w)\["([^."]+)"\]/g, '$1.$2');
+    source = source.replace(/(\w)\["([^."]+)"\]/g, function(match, left, right) {
+      return /\W/.test(right) ? match : (left + '.' + right);
+    });
 
     // correct AMD module definition for AMD build optimizers
     source = source.replace(/("function")\s*==\s*(typeof define)\s*&&\s*\(?\s*("object")\s*==\s*(typeof define\.amd)\s*&&\s*(define\.amd)\s*\)?/, '$2==$1&&$4==$3&&$5');
 
-    // add license
-    source = license + '\n;' + source;
-
     // add trailing semicolon
-    return source.replace(/[\s;]*$/, ';');
+    source = source.replace(/[\s;]*$/, ';');
+
+    // exit early if version snippet isn't found
+    var snippet = /version\s*:\s*([\'"])(.*?)\1/.exec(source);
+    if (!snippet) {
+      return source;
+    }
+
+    // add license
+    return licenseTemplate.replace('@VERSION', snippet[2]) + '\n;' + source;
   }
 
   /*--------------------------------------------------------------------------*/
