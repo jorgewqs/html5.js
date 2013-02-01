@@ -19,8 +19,9 @@
   /** List of HTML5 node names to install support for */
   var nodeNames = [
     'abbr', 'article', 'aside', 'audio', 'bdi', 'canvas', 'data', 'datalist',
-    'details', 'figcaption', 'figure', 'footer', 'header', 'hgroup', 'mark',
-    'meter', 'nav', 'output', 'progress', 'section', 'summary', 'time', 'video'
+    'details', 'figcaption', 'figure', 'footer', 'header', 'hgroup', 'main',
+    'mark', 'meter', 'nav', 'output', 'progress', 'section', 'summary', 'time',
+    'video'
   ];
 
   /** Used to namespace printable elements and define `expando` */
@@ -81,7 +82,7 @@
     p.innerHTML = '<nav/>';
 
     /**
-     * Detect whether the browser supports default html5 styles.
+     * Detect whether the browser supports default HTML5 styles.
      * @memberOf html5.support
      * @type Boolean
      */
@@ -251,7 +252,7 @@
     // https://github.com/necolas/normalize.css
     getCache(ownerDocument).sheet = addStyleSheet(ownerDocument,
       // corrects block display not defined in IE6/7/8/9 and Firefox 3
-      'article, aside, figcaption, figure, footer, header, hgroup, nav, section {' +
+      'article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {' +
       '  display: block' +
       '}' +
       // adds styling not present in IE6/7/8/9
