@@ -19,7 +19,7 @@
   /** List of HTML5 node names to install support for */
   var nodeNames = [
     'abbr', 'article', 'aside', 'audio', 'bdi', 'canvas', 'data', 'datalist',
-    'details', 'figcaption', 'figure', 'footer', 'header', 'hgroup', 'main',
+    'details', 'figcaption', 'figure', 'footer', 'header', 'main',
     'mark', 'meter', 'nav', 'output', 'progress', 'section', 'summary', 'time',
     'video'
   ];
@@ -252,7 +252,7 @@
     // https://github.com/necolas/normalize.css
     getCache(ownerDocument).sheet = addStyleSheet(ownerDocument,
       // corrects block display not defined in IE6/7/8/9 and Firefox 3
-      'article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {' +
+      'article, aside, figcaption, figure, footer, header, main, nav, section {' +
       '  display: block' +
       '}' +
       // adds styling not present in IE6/7/8/9
